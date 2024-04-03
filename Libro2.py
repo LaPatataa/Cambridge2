@@ -779,11 +779,11 @@ while(True):
         pass
     contador+=1
     print(f"it : {contador}")
-    # try:
-    Tareas()
-    # except Exception as e:
-    #     print(e)
-    #     input("error del try catch inicial")
+    try:
+        Tareas()
+    except Exception as e:
+        print(e)
+        input("error del try catch inicial")
     sleep(1)
 
 
