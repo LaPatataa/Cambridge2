@@ -22,14 +22,14 @@ def Continue():
 def Iniciar_Sesion():   
     driver.find_element(By.XPATH,value='//*[@id="onboarding-header-login-btn"]').click()
     
-    driver.find_element(By.XPATH,value='//*[@id="gigya-loginID-56269462240752180"]').send_keys("est.rgmanuel@smart.edu.co")
-    driver.find_element(By.XPATH,value='//*[@id="gigya-password-56383998600152700"]').send_keys("Atleta789*")
+    driver.find_element(By.XPATH,value='//*[@id="gigya-loginID-56269462240752180"]').send_keys("umb-1021393422")
+    driver.find_element(By.XPATH,value='//*[@id="gigya-password-56383998600152700"]').send_keys("umb-1021393422")
     driver.find_element(By.XPATH,value='//*[@id="gigya-login-form"]/div[2]/div[1]/input').click()     
     
 def Buscar_tareas():
     driver.implicitly_wait(5)
-    driver.find_element(By.XPATH,value='//*[@id="bundleCollapse-user_cd50ac64eba3401a992a5e6e2617680e-ic2"]/material-container/div/div/div[1]/div[2]/material-tile/div/a').click()
-    #driver.find_element(By.CLASS_NAME,value='no-decoration.tile-section-1.d-flex.align-items-center').click()
+    #driver.find_element(By.XPATH,value='//*[@id="bundleCollapse-user_cd50ac64eba3401a992a5e6e2617680e-ic2"]/material-container/div/div/div[1]/div[2]/material-tile/div/a').click()
+    driver.find_element(By.CLASS_NAME,value='no-decoration.tile-section-1.d-flex.align-items-center').click()
 
     sleep(3)
     
