@@ -22,14 +22,14 @@ def Continue():
 def Iniciar_Sesion():   
     driver.find_element(By.XPATH,value='//*[@id="onboarding-header-login-btn"]').click()
     
-    driver.find_element(By.XPATH,value='//*[@id="gigya-loginID-56269462240752180"]').send_keys("umb-1034279369")
-    driver.find_element(By.XPATH,value='//*[@id="gigya-password-56383998600152700"]').send_keys("umb-1034279369")
+    driver.find_element(By.XPATH,value='//*[@id="gigya-loginID-56269462240752180"]').send_keys("umb-1034576202")
+    driver.find_element(By.XPATH,value='//*[@id="gigya-password-56383998600152700"]').send_keys("umb-1034576202")
     driver.find_element(By.XPATH,value='//*[@id="gigya-login-form"]/div[2]/div[1]/input').click()     
     
 def Buscar_tareas():
     driver.implicitly_wait(5)
     #driver.find_element(By.XPATH,value='//*[@id="bundleCollapse-72d1b0f2-345e-4dec-b25d-e8304251e097-ic53a"]/material-container/div/div/div[1]/div[2]/material-tile/div/a').click()
-    driver.find_element(By.XPATH,value='//*[@id="bundleCollapse-5be0105e-f858-425f-8a8c-980652b2dad2-ic52a"]/material-container/div/div/div[1]/div[2]/material-tile/div/a').click()
+    driver.find_element(By.XPATH,value='//*[@id="bundleCollapse-55b82063-d314-4841-9e7b-4b923286e98a-ic52b"]/material-container/div/div/div[1]/div[2]/material-tile/div/a').click()
 
     sleep(3)
     
@@ -553,82 +553,101 @@ def Tarea_DragAndDrop2():
                             driver.switch_to.frame(iframe)  
                 except IndexError:
                     Continue()
-# def checkbox():
-#     driver.execute_script("window.open(window.location.href);")
-#     sleep(1)
-#     ventanas = driver.window_handles 
-#     driver.switch_to.window(ventanas[0])
+def checkbox():
+    driver.execute_script("window.open(window.location.href);")
+    sleep(1)
+    ventanas = driver.window_handles 
+    driver.switch_to.window(ventanas[0])
     
-#     iframe = driver.find_elements(By.TAG_NAME,'iframe')[0]
-#     driver.switch_to.frame(iframe)
+    iframe = driver.find_elements(By.TAG_NAME,'iframe')[0]
+    driver.switch_to.frame(iframe)
     
-#     inputs = driver.find_elements(By.CLASS_NAME,value="is-checkbox-choice-text")
-#     body = driver.find_element(By.TAG_NAME,value='body')
+    inputs = driver.find_elements(By.CLASS_NAME,value="is-checkbox-choice-text")
     
-#     for element in inputs:
-#         try:
-#             element.click()
-#         except:
-#             pass
+    for element in inputs:
+        try:
+            element.click()
+        except:
+            pass
 
-#     check()
+    check()
         
-#     iframe = driver.find_elements(By.TAG_NAME,'iframe')[0]
-#     driver.switch_to.frame(iframe)  
+    iframe = driver.find_elements(By.TAG_NAME,'iframe')[0]
+    driver.switch_to.frame(iframe)
     
-#     sleep(1)
-#     try:
-#         driver.find_element(By.XPATH,value='//*[@id="feedback-text-info__close"]').click()
-#     except:
-#         pass
+    sleep(1)
+    try:
+        driver.find_element(By.XPATH,value='//*[@id="feedback-text-info__close"]').click()
+    except:
+        pass
     
-#     correctas = []
+    correctasAux = []
+    body = driver.find_element(By.TAG_NAME,value='body')
+    
+    inputs = driver.find_elements(By.CLASS_NAME,value='choice_interaction.algn-ver.has-input')
 
-#     body = driver.find_element(By.TAG_NAME,value='body')
+    body.click()
+    body.send_keys(Keys.HOME)
+    sleep(1)
     
-#     cantidadDivisiones = len(driver.find_elements(By.CLASS_NAME,value="choice_interaction.algn-ver.has-input"))
-#     cantidadOpciones = len(driver.find_elements(By.CLASS_NAME,value="is-checkbox-choice-text"))
-#     cantidadXdivision = cantidadOpciones/cantidadDivisiones
+    for element in inputs:
+        try:
+            elements = element.find_element(By.CLASS_NAME,value='check.wrong.has-feedback')
+            elements.click()
+            respuesta = driver.find_element(By.CSS_SELECTOR, 'div.ui-dialog-content').find_element(By.TAG_NAME, 'p').text[26:].strip()
+        except Exception as e:
+            elements = element.find_element(By.CLASS_NAME,value='check.correct.has-feedback')
+            elements.click()
+            respuesta = elements.find_element(By.XPATH,value='..').text
+        correctasAux.append(respuesta)
+        sleep(0.25)
+       
+    correctas = []
+    aux = ""
+    for i in correctasAux:
+        aux = i.replace(':\n', '').replace('\n', ',')
+        if ',' in aux:
+            correctas.append(aux.split(','))
+        else:
+            correctas.append(aux)     
+    print(correctas)
     
-#     inputs = driver.find_elements(By.CSS_SELECTOR,value='.check.has-feedback')
-#     print("????",len(inputs))
-#     body.click()
-#     body.send_keys(Keys.HOME)
-#     sleep(1)
+    driver.close()
     
-#     for element in inputs:
-#         try:
-#             element.click()
-#             temp = driver.find_element(By.CSS_SELECTOR, 'div.ui-dialog-content').find_element(By.TAG_NAME, 'p').text[26:].strip()
-#             if temp == "":
-#                 aux = element.find_element(By.XPATH,value='..').text
-#                 temp = aux
-#             sleep(0.25)
-#         except ElementClickInterceptedException:
-#             try:
-#                 driver.find_element(By.CLASS_NAME,value="ui-button.ui-widget.ui-state-default").click()
-#             except:
-#                 pass
-#             sleep(0.25)
-#             try:
-#              element.click()    
-#             except ElementClickInterceptedException:
-#                 body.click()
-#                 for i in range(4):
-#                   body.send_keys(Keys.ARROW_DOWN)
-#                 sleep(1)
-#                 element.click()
-#             finally:
-#                 temp = driver.find_element(By.CSS_SELECTOR, 'div.ui-dialog-content').find_element(By.TAG_NAME, 'p').text[26:].strip()
-#                 if temp == "":
-#                     aux = element.find_element(By.XPATH,value='..').text
-#                     temp = aux
-#         except NoSuchElementException:
-#             pass
-#         correctas.append(temp)
-        
-#     print(correctas)
+    ventanas = driver.window_handles 
+    driver.switch_to.window(ventanas[0])
 
+    iframe = driver.find_elements(By.TAG_NAME,'iframe')[0]
+    driver.switch_to.frame(iframe)
+    inputs = driver.find_elements(By.CLASS_NAME,value="choice_interaction.algn-ver.has-input")
+    print(len(inputs))
+    i,aux=0,0
+    
+    for element in inputs:
+        elements = element.find_elements(By.CLASS_NAME,value="is-checkbox-choice-text")
+        for element in elements:
+            print(element.text,correctas[i],sep=" , ")
+            if element.text in correctas[i]:
+                element.click()
+                aux+=1
+                print("aux: ",aux)
+                print("len: ",len(correctas[i]))
+                if isinstance(correctas[i],list):
+                    if aux == len(correctas[i]):
+                        i+=1
+                        aux=0
+                        print("i: ",i)
+                        break
+                else:
+                    i+=1
+                    aux=0
+                    print("i: ",i)
+                    break
+                sleep(0.5)
+    check()
+    check()
+    Continue()
+    
 
 def Inicio():
     driver.get("https://www.cambridgeone.org")
@@ -658,8 +677,8 @@ def Tareas():
         prueba = input("desplegable2")
         
     elif(Checkbox := driver.find_elements(By.CLASS_NAME,"input-checkbox")): 
-        #checkbox();
-        prueba = input("Checkbox")
+        checkbox();
+        # prueba = input("Checkbox")
         
     elif(seleccionar := driver.find_elements(By.CLASS_NAME,"contentblock.alignment-vertical")) and len(seleccionar) == 1: 
         Tarea_Seleccionar()    
